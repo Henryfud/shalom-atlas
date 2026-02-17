@@ -8,7 +8,6 @@ export const FILTERS: FilterDef[] = [
     color: "#4a7cff",
     weight: 2.5,
     group: "religious",
-    icon: "🕍",
   },
   {
     id: "chabad",
@@ -16,7 +15,6 @@ export const FILTERS: FilterDef[] = [
     color: "#6366f1",
     weight: 2.0,
     group: "religious",
-    icon: "🕯",
   },
   {
     id: "mikvahs",
@@ -24,7 +22,6 @@ export const FILTERS: FilterDef[] = [
     color: "#818cf8",
     weight: 2.0,
     group: "religious",
-    icon: "💧",
   },
 
   // Education
@@ -34,7 +31,6 @@ export const FILTERS: FilterDef[] = [
     color: "#f59e0b",
     weight: 1.8,
     group: "education",
-    icon: "📚",
   },
   {
     id: "hillel",
@@ -42,7 +38,6 @@ export const FILTERS: FilterDef[] = [
     color: "#fbbf24",
     weight: 1.5,
     group: "education",
-    icon: "🎓",
   },
   {
     id: "hebrew_schools",
@@ -50,7 +45,6 @@ export const FILTERS: FilterDef[] = [
     color: "#f97316",
     weight: 1.5,
     group: "education",
-    icon: "✏️",
   },
 
   // Food & Commerce
@@ -60,7 +54,6 @@ export const FILTERS: FilterDef[] = [
     color: "#10b981",
     weight: 1.3,
     group: "food",
-    icon: "🥯",
   },
   {
     id: "kosher_delis",
@@ -68,7 +61,6 @@ export const FILTERS: FilterDef[] = [
     color: "#34d399",
     weight: 1.2,
     group: "food",
-    icon: "🛒",
   },
   {
     id: "kosher_bakeries",
@@ -76,7 +68,6 @@ export const FILTERS: FilterDef[] = [
     color: "#6ee7b7",
     weight: 1.0,
     group: "food",
-    icon: "🍞",
   },
   {
     id: "judaica",
@@ -84,7 +75,6 @@ export const FILTERS: FilterDef[] = [
     color: "#14b8a6",
     weight: 1.0,
     group: "food",
-    icon: "📖",
   },
 
   // Community Organizations
@@ -94,7 +84,6 @@ export const FILTERS: FilterDef[] = [
     color: "#ec4899",
     weight: 1.2,
     group: "community",
-    icon: "🏛",
   },
   {
     id: "federations",
@@ -102,7 +91,6 @@ export const FILTERS: FilterDef[] = [
     color: "#f472b6",
     weight: 1.0,
     group: "community",
-    icon: "🤝",
   },
   {
     id: "jewish_family_services",
@@ -110,7 +98,6 @@ export const FILTERS: FilterDef[] = [
     color: "#fb7185",
     weight: 1.0,
     group: "community",
-    icon: "❤️",
   },
   {
     id: "jewish_museums",
@@ -118,7 +105,6 @@ export const FILTERS: FilterDef[] = [
     color: "#e879f9",
     weight: 0.8,
     group: "community",
-    icon: "🏛",
   },
 
   // Infrastructure (no weight — display only)
@@ -128,7 +114,6 @@ export const FILTERS: FilterDef[] = [
     color: "#d4a853",
     weight: 0,
     group: "infrastructure",
-    icon: "🚇",
   },
 
   // Demographic overlays (no weight — display only)
@@ -138,7 +123,6 @@ export const FILTERS: FilterDef[] = [
     color: "#d4a853",
     weight: 0,
     group: "demographic",
-    icon: "👥",
   },
   {
     id: "median_home_price",
@@ -146,7 +130,6 @@ export const FILTERS: FilterDef[] = [
     color: "#94a3b8",
     weight: 0,
     group: "demographic",
-    icon: "💰",
   },
 ];
 

@@ -42,7 +42,7 @@ export default function Navbar() {
           }`}
           style={!isJewish ? { filter: "drop-shadow(0 0 6px #22963e)" } : undefined}
         >
-          {isJewish ? "✡" : "✝"}
+          {isJewish ? "SA" : "GM"}
         </div>
         <span className="font-display text-xl font-bold text-text-primary tracking-tight">
           {isJewish ? "Shalom Atlas" : "Goy Mode"}
@@ -59,7 +59,7 @@ export default function Navbar() {
               : "text-text-muted hover:text-text-secondary"
           }`}
         >
-          ✡ Jewish
+          Jewish
         </button>
         <button
           onClick={() => isJewish && toggleMode()}
@@ -69,7 +69,7 @@ export default function Navbar() {
               : "text-text-muted hover:text-text-secondary"
           }`}
         >
-          ✝ Goy
+          Goy
         </button>
       </div>
 

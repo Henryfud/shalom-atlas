@@ -13,7 +13,7 @@ export default function RequestDataSection() {
           {/* Request a City */}
           <div className="bg-bg-card border border-border rounded-xl p-6">
             <div className="flex items-center gap-2 mb-1">
-              <span className="text-lg">🏙</span>
+              <span className="text-lg font-bold text-accent-gold">+</span>
               <h3 className="text-lg font-semibold text-text-primary">
                 Request a City
               </h3>
@@ -36,7 +36,7 @@ export default function RequestDataSection() {
           {/* Request a Name */}
           <div className="bg-bg-card border border-border rounded-xl p-6">
             <div className="flex items-center gap-2 mb-1">
-              <span className="text-lg">✨</span>
+              <span className="text-lg font-bold text-accent-gold">+</span>
               <h3 className="text-lg font-semibold text-text-primary">
                 Request a Name
               </h3>

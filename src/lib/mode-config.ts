@@ -5,7 +5,7 @@ import { GOY_FILTERS, GOY_FILTER_GROUPS } from "@/data/goy-filters";
 export const MODE_CONFIGS: Record<AppMode, ModeConfig> = {
   jewish: {
     label: "Shalom Atlas",
-    icon: "✡",
+    icon: "",
     densityProperty: "cdi",
     densityLabel: "Community Density Index",
     hexDataPrefix: "hex_res",
@@ -35,7 +35,7 @@ export const MODE_CONFIGS: Record<AppMode, ModeConfig> = {
   },
   goy: {
     label: "Goy Mode",
-    icon: "✝",
+    icon: "",
     densityProperty: "gpi",
     densityLabel: "Goy Population Index (GPI)",
     hexDataPrefix: "goy_hex_res",
