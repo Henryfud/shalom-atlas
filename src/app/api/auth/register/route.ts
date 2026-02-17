@@ -1,11 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
+import { getSupabase } from "@/lib/supabase";
 import { randomBytes, pbkdf2Sync } from "crypto";
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
 
 function hashPassword(password: string, salt: string): string {
   return pbkdf2Sync(password, salt, 100000, 64, "sha512").toString("hex");
@@ -22,6 +17,7 @@ export async function POST(req: NextRequest) {
   }
 
   const cleanUsername = username.trim().toLowerCase();
+  const supabase = getSupabase();
 
   // Check if username is taken
   const { data: existing } = await supabase

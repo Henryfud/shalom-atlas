@@ -1,28 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
+import { getSupabase } from "@/lib/supabase";
 import { getCurrentPeriodId } from "@/lib/periods";
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
 
 const DAILY_CAP = 500;
 
 export async function POST(req: NextRequest) {
-  // Get auth token from request
-  const authHeader = req.headers.get("authorization");
-  const token = authHeader?.replace("Bearer ", "") ?? "";
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser(token);
-
-  if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
+  const supabase = getSupabase();
   const body = await req.json();
+  const userId = body.user_id;
   const { hex_id, mode, vote_value } = body;
 
   if (!hex_id || !mode || vote_value === undefined) {
@@ -44,7 +29,7 @@ export async function POST(req: NextRequest) {
   const { data: dailyData } = await supabase
     .from("daily_points")
     .select("points_earned")
-    .eq("user_id", user.id)
+    .eq("user_id", userId)
     .eq("date", today)
     .single();
 
@@ -57,7 +42,7 @@ export async function POST(req: NextRequest) {
   const { data: existingVote } = await supabase
     .from("votes")
     .select("id")
-    .eq("user_id", user.id)
+    .eq("user_id", userId)
     .eq("hex_id", hex_id)
     .eq("mode", mode)
     .eq("period_id", periodId)
@@ -79,7 +64,7 @@ export async function POST(req: NextRequest) {
 
   // Insert vote
   const { error: voteError } = await supabase.from("votes").insert({
-    user_id: user.id,
+    user_id: userId,
     hex_id,
     mode,
     vote_value,
@@ -94,7 +79,7 @@ export async function POST(req: NextRequest) {
   const newDaily = currentDaily + pointsEarned;
   await supabase
     .from("daily_points")
-    .upsert({ user_id: user.id, date: today, points_earned: newDaily });
+    .upsert({ user_id: userId, date: today, points_earned: newDaily });
 
   return NextResponse.json({
     success: true,
