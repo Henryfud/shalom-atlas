@@ -21,6 +21,14 @@ export const metadata: Metadata = {
   title: "Shalom Atlas — Jewish Community Demographics",
   description:
     "Interactive heatmap visualizing Jewish community presence across the United States using publicly available data.",
+  icons: {
+    icon: [
+      { url: "/favicons/favicon.ico", sizes: "any" },
+      { url: "/favicons/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicons/favicon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: "/favicons/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({
