@@ -1,0 +1,117 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "name": "Williamsburg → Crown Heights" },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-73.9577, 40.7088],
+          [-73.9560, 40.7035],
+          [-73.9545, 40.6980],
+          [-73.9530, 40.6920],
+          [-73.9520, 40.6860],
+          [-73.9510, 40.6800],
+          [-73.9518, 40.6740],
+          [-73.9530, 40.6700],
+          [-73.9560, 40.6690]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Crown Heights → Borough Park" },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-73.9560, 40.6690],
+          [-73.9600, 40.6670],
+          [-73.9650, 40.6650],
+          [-73.9710, 40.6640],
+          [-73.9780, 40.6635],
+          [-73.9850, 40.6630],
+          [-73.9920, 40.6628],
+          [-73.9970, 40.6330]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Borough Park → Midwood" },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-73.9970, 40.6330],
+          [-73.9960, 40.6280],
+          [-73.9950, 40.6220],
+          [-73.9940, 40.6170],
+          [-73.9935, 40.6120],
+          [-73.9480, 40.6100]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Midwood → Flatbush" },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-73.9480, 40.6100],
+          [-73.9500, 40.6150],
+          [-73.9520, 40.6200],
+          [-73.9540, 40.6260],
+          [-73.9560, 40.6330],
+          [-73.9570, 40.6400],
+          [-73.9580, 40.6450]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Borough Park → Bensonhurst" },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-73.9970, 40.6330],
+          [-73.9990, 40.6280],
+          [-74.0010, 40.6220],
+          [-74.0030, 40.6170],
+          [-74.0050, 40.6120],
+          [-74.0060, 40.6060]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Williamsburg North-South Connector" },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-73.9572, 40.7155],
+          [-73.9575, 40.7130],
+          [-73.9577, 40.7105],
+          [-73.9577, 40.7088],
+          [-73.9560, 40.7035],
+          [-73.9555, 40.6995]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "name": "Crown Heights East-West" },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-73.9680, 40.6700],
+          [-73.9640, 40.6695],
+          [-73.9600, 40.6692],
+          [-73.9560, 40.6690],
+          [-73.9520, 40.6688],
+          [-73.9470, 40.6685],
+          [-73.9420, 40.6680]
+        ]
+      }
+    }
+  ]
+}

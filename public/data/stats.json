@@ -1,0 +1,128 @@
+{
+  "totalEstimatedPopulation": 7600000,
+  "totalSynagogues": 3728,
+  "totalKosherEstablishments": 4215,
+  "totalJCCs": 347,
+  "statesWithData": 42,
+  "topMetros": [
+    {
+      "rank": 1,
+      "name": "Lakewood, NJ",
+      "cdi": 98
+    },
+    {
+      "rank": 2,
+      "name": "Brooklyn, NY",
+      "cdi": 97
+    },
+    {
+      "rank": 3,
+      "name": "Monsey, NY",
+      "cdi": 95
+    },
+    {
+      "rank": 4,
+      "name": "Manhattan, NY",
+      "cdi": 90
+    },
+    {
+      "rank": 5,
+      "name": "Teaneck, NJ",
+      "cdi": 88
+    },
+    {
+      "rank": 6,
+      "name": "Five Towns, NY",
+      "cdi": 85
+    },
+    {
+      "rank": 7,
+      "name": "Great Neck, NY",
+      "cdi": 85
+    },
+    {
+      "rank": 8,
+      "name": "Passaic, NJ",
+      "cdi": 82
+    },
+    {
+      "rank": 9,
+      "name": "Los Angeles, CA",
+      "cdi": 82
+    },
+    {
+      "rank": 10,
+      "name": "Miami Beach, FL",
+      "cdi": 80
+    }
+  ],
+  "topZIPs": [
+    {
+      "rank": 1,
+      "zip": "11230",
+      "area": "Midwood, Brooklyn",
+      "cdi": 98
+    },
+    {
+      "rank": 2,
+      "zip": "08701",
+      "area": "Lakewood, NJ",
+      "cdi": 97
+    },
+    {
+      "rank": 3,
+      "zip": "11219",
+      "area": "Borough Park, Brooklyn",
+      "cdi": 96
+    },
+    {
+      "rank": 4,
+      "zip": "11211",
+      "area": "Williamsburg, Brooklyn",
+      "cdi": 95
+    },
+    {
+      "rank": 5,
+      "zip": "10977",
+      "area": "Spring Valley/Monsey, NY",
+      "cdi": 93
+    },
+    {
+      "rank": 6,
+      "zip": "11235",
+      "area": "Brighton Beach, Brooklyn",
+      "cdi": 90
+    },
+    {
+      "rank": 7,
+      "zip": "10952",
+      "area": "Monsey, NY",
+      "cdi": 89
+    },
+    {
+      "rank": 8,
+      "zip": "07055",
+      "area": "Passaic, NJ",
+      "cdi": 85
+    },
+    {
+      "rank": 9,
+      "zip": "11516",
+      "area": "Cedarhurst (Five Towns), NY",
+      "cdi": 83
+    },
+    {
+      "rank": 10,
+      "zip": "07666",
+      "area": "Teaneck, NJ",
+      "cdi": 80
+    }
+  ],
+  "cdiDistribution": {
+    "0-20": 371,
+    "21-40": 206,
+    "41-60": 100,
+    "61-80": 15,
+    "81-100": 9
+  }
+}

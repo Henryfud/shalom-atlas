@@ -1,7 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  transpilePackages: ["maplibre-gl"],
+  turbopack: {
+    resolveAlias: {
+      "maplibre-gl": "maplibre-gl/dist/maplibre-gl.js",
+    },
+  },
 };
 
 export default nextConfig;

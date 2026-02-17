@@ -1,0 +1,66 @@
+import type { AppMode, ModeConfig } from "@/types";
+import { FILTERS, FILTER_GROUPS } from "@/data/filters";
+import { GOY_FILTERS, GOY_FILTER_GROUPS } from "@/data/goy-filters";
+
+export const MODE_CONFIGS: Record<AppMode, ModeConfig> = {
+  jewish: {
+    label: "Shalom Atlas",
+    icon: "✡",
+    densityProperty: "cdi",
+    densityLabel: "Community Density Index",
+    hexDataPrefix: "hex_res",
+    poiDataPath: "/data/poi_markers.json",
+    accentColor: "#d4a853",
+    tiers: [
+      { min: 0, max: 20, label: "Minimal", score: 10 },
+      { min: 21, max: 40, label: "Low", score: 30 },
+      { min: 41, max: 60, label: "Moderate", score: 50 },
+      { min: 61, max: 80, label: "Notable", score: 70 },
+      { min: 81, max: 100, label: "Strong", score: 90 },
+    ],
+    colorStops: [
+      [0, [13, 21, 38]],
+      [10, [20, 34, 68]],
+      [25, [30, 58, 110]],
+      [40, [42, 109, 181]],
+      [55, [74, 159, 212]],
+      [70, [139, 196, 160]],
+      [80, [184, 168, 85]],
+      [90, [201, 168, 76]],
+      [95, [212, 168, 83]],
+      [100, [232, 194, 82]],
+    ],
+    filters: FILTERS,
+    filterGroups: FILTER_GROUPS,
+  },
+  goy: {
+    label: "Goy Mode",
+    icon: "✝",
+    densityProperty: "gpi",
+    densityLabel: "Goy Population Index (GPI)",
+    hexDataPrefix: "goy_hex_res",
+    poiDataPath: "/data/goy_poi_markers.json",
+    accentColor: "#22963e",
+    tiers: [
+      { min: 0, max: 20, label: "Goy Desert", score: 10 },
+      { min: 21, max: 40, label: "A Few Goys", score: 30 },
+      { min: 41, max: 60, label: "Getting Goyish", score: 50 },
+      { min: 61, max: 80, label: "Goy Central", score: 70 },
+      { min: 81, max: 100, label: "Maximum Goyim", score: 90 },
+    ],
+    colorStops: [
+      [0, [75, 0, 130]],
+      [10, [180, 20, 20]],
+      [20, [220, 38, 38]],
+      [35, [239, 100, 80]],
+      [50, [245, 158, 50]],
+      [65, [230, 195, 40]],
+      [75, [180, 210, 50]],
+      [85, [100, 190, 60]],
+      [95, [50, 170, 50]],
+      [100, [34, 150, 34]],
+    ],
+    filters: GOY_FILTERS,
+    filterGroups: GOY_FILTER_GROUPS,
+  },
+};
