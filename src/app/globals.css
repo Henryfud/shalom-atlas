@@ -62,14 +62,30 @@ body {
   border-top-color: var(--color-bg-card) !important;
 }
 
+/* Panel slide animations */
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(16px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes slide-in-bottom {
+  from { opacity: 0; transform: translateY(100%); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-slide-in-right {
+  animation: slide-in-right 0.2s ease-out;
+}
+.animate-slide-in-bottom {
+  animation: slide-in-bottom 0.25s ease-out;
+}
+
 /* Goy Mode theme overrides */
 html[data-mode="goy"] {
   --color-accent-gold: #22963e;
   --color-accent-gold-dim: #1a7a32;
-  --color-cdi-0: #4b0082;
-  --color-cdi-20: #dc2626;
-  --color-cdi-40: #ef6450;
-  --color-cdi-60: #f59e32;
-  --color-cdi-80: #b4d232;
-  --color-cdi-100: #22963e;
+  --color-cdi-0: #4ade80;
+  --color-cdi-20: #6ee7b7;
+  --color-cdi-40: #60a5fa;
+  --color-cdi-60: #f472b6;
+  --color-cdi-80: #ef4444;
+  --color-cdi-100: #ef4444;
 }

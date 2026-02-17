@@ -5,8 +5,7 @@ import Map, { type MapRef, type ViewStateChangeEvent, type MapLayerMouseEvent } 
 import { useAppStore } from "@/store";
 import { getResolutionForZoom } from "@/lib/h3";
 import HexLayer from "./HexLayer";
-import HexTooltip from "./HexTooltip";
-import VotePopup from "./VotePopup";
+import HexInfoPanel from "./HexInfoPanel";
 import maplibregl, { type Map as MaplibreMap } from "maplibre-gl";
 import * as pmtiles from "pmtiles";
 
@@ -26,13 +25,16 @@ export default function MapContainer() {
   const hexResolution = useAppStore((s) => s.hexResolution);
   const mode = useAppStore((s) => s.mode);
 
-  const [hoveredFeature, setHoveredFeature] = useState<GeoJSON.Feature | null>(null);
-  const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
   const hoveredStateId = useRef<number | null>(null);
 
-  // Click-to-vote popup state
-  const [clickedFeature, setClickedFeature] = useState<GeoJSON.Feature | null>(null);
-  const [clickPos, setClickPos] = useState({ x: 0, y: 0 });
+  // Active hex for info panel (updated on hover and click)
+  const [activeFeature, setActiveFeature] = useState<GeoJSON.Feature | null>(null);
+  const selectedStateId = useRef<number | null>(null);
+  // Whether the panel is "locked" by a click (persists until X or empty click)
+  const isLocked = useRef(false);
+
+  // First symbol layer ID — hex layers insert before this so labels render on top
+  const [firstSymbolId, setFirstSymbolId] = useState<string | undefined>(undefined);
 
   // Track basemap layer IDs so we can restyle them on mode change
   const waterLayerIds = useRef<string[]>([]);
@@ -66,6 +68,10 @@ export default function MapContainer() {
     const bgIds: string[] = [];
     const landIds: string[] = [];
     const currentMode = useAppStore.getState().mode;
+
+    // Find first symbol layer so hex layers render below labels
+    const firstSymbol = style.layers.find((l) => l.type === "symbol");
+    if (firstSymbol) setFirstSymbolId(firstSymbol.id);
 
     for (const layer of style.layers) {
       const id = layer.id.toLowerCase();
@@ -133,10 +139,31 @@ export default function MapContainer() {
     }
   }, [mode]);
 
+  // Clear active hex when mode changes
+  useEffect(() => {
+    clearSelection();
+  }, [mode]);
+
   const getSourceLayer = useCallback(() => {
     const currentMode = useAppStore.getState().mode;
     return currentMode === "jewish" ? "jewish-hex" : "goy-hex";
   }, []);
+
+  const clearSelection = useCallback(() => {
+    const map = mapRef.current?.getMap();
+    if (map && selectedStateId.current !== null) {
+      const sl = getSourceLayer();
+      try {
+        map.setFeatureState(
+          { source: "hex-data", sourceLayer: sl, id: selectedStateId.current },
+          { selected: false }
+        );
+      } catch { /* source may not exist yet */ }
+    }
+    selectedStateId.current = null;
+    isLocked.current = false;
+    setActiveFeature(null);
+  }, [getSourceLayer]);
 
   const onMouseMove = useCallback(
     (evt: MapLayerMouseEvent) => {
@@ -156,15 +183,12 @@ export default function MapContainer() {
         } catch { /* source may not exist yet */ }
       }
 
-      // Only show tooltips at zoom 8+
+      // Only interact at zoom 8+
       if (zoom < 8) {
         hoveredStateId.current = null;
-        setHoveredFeature(null);
         map.getCanvas().style.cursor = "";
         return;
       }
-
-      setTooltipPos({ x: evt.point.x, y: evt.point.y });
 
       // Check hex layer
       const features = evt.features;
@@ -177,12 +201,46 @@ export default function MapContainer() {
             { hover: true }
           );
         } catch { /* source may not exist yet */ }
-        setHoveredFeature(feature);
+
+        // Update panel with hovered hex (only if not locked by click)
+        if (!isLocked.current) {
+          setActiveFeature(feature);
+
+          // Update selected outline to follow hover
+          if (selectedStateId.current !== null && selectedStateId.current !== (feature.id as number)) {
+            try {
+              map.setFeatureState(
+                { source: "hex-data", sourceLayer: sl, id: selectedStateId.current },
+                { selected: false }
+              );
+            } catch { /* */ }
+          }
+          selectedStateId.current = feature.id as number;
+          try {
+            map.setFeatureState(
+              { source: "hex-data", sourceLayer: sl, id: feature.id as number },
+              { selected: true }
+            );
+          } catch { /* */ }
+        }
+
         map.getCanvas().style.cursor = "pointer";
       } else {
         hoveredStateId.current = null;
-        setHoveredFeature(null);
         map.getCanvas().style.cursor = "";
+        // Mouse left hex area — hide panel if not locked
+        if (!isLocked.current) {
+          if (selectedStateId.current !== null) {
+            try {
+              map.setFeatureState(
+                { source: "hex-data", sourceLayer: sl, id: selectedStateId.current },
+                { selected: false }
+              );
+            } catch { /* */ }
+            selectedStateId.current = null;
+          }
+          setActiveFeature(null);
+        }
       }
     },
     [getSourceLayer]
@@ -193,13 +251,39 @@ export default function MapContainer() {
       const map = mapRef.current?.getMap();
       if (!map || map.getZoom() < 8) return;
 
+      const sl = getSourceLayer();
       const features = evt.features;
+
       if (features && features.length > 0) {
-        setClickedFeature(features[0]);
-        setClickPos({ x: evt.point.x, y: evt.point.y });
+        const feature = features[0];
+
+        // Clear previous selection
+        if (selectedStateId.current !== null) {
+          try {
+            map.setFeatureState(
+              { source: "hex-data", sourceLayer: sl, id: selectedStateId.current },
+              { selected: false }
+            );
+          } catch { /* */ }
+        }
+
+        // Set new selection
+        selectedStateId.current = feature.id as number;
+        try {
+          map.setFeatureState(
+            { source: "hex-data", sourceLayer: sl, id: feature.id as number },
+            { selected: true }
+          );
+        } catch { /* */ }
+
+        isLocked.current = true;
+        setActiveFeature(feature);
+      } else {
+        // Clicked empty space — clear selection
+        clearSelection();
       }
     },
-    []
+    [getSourceLayer, clearSelection]
   );
 
   const onMouseLeave = useCallback(() => {
@@ -216,8 +300,21 @@ export default function MapContainer() {
       } catch { /* source may not exist yet */ }
     }
     hoveredStateId.current = null;
-    setHoveredFeature(null);
     map.getCanvas().style.cursor = "";
+    // Hide panel on mouse leave if not locked by click
+    if (!isLocked.current) {
+      if (selectedStateId.current !== null) {
+        const sl2 = getSourceLayer();
+        try {
+          map.setFeatureState(
+            { source: "hex-data", sourceLayer: sl2, id: selectedStateId.current },
+            { selected: false }
+          );
+        } catch { /* */ }
+        selectedStateId.current = null;
+      }
+      setActiveFeature(null);
+    }
   }, [getSourceLayer]);
 
   return (
@@ -239,19 +336,12 @@ export default function MapContainer() {
         maxZoom={16}
         attributionControl={{ compact: true }}
       >
-        <HexLayer />
+        <HexLayer beforeId={firstSymbolId} />
       </Map>
-      <HexTooltip
-        feature={hoveredFeature}
-        x={tooltipPos.x}
-        y={tooltipPos.y}
-      />
-      {clickedFeature && (
-        <VotePopup
-          feature={clickedFeature}
-          x={clickPos.x}
-          y={clickPos.y}
-          onClose={() => setClickedFeature(null)}
+      {activeFeature && (
+        <HexInfoPanel
+          feature={activeFeature}
+          onClose={clearSelection}
         />
       )}
     </>

@@ -13,8 +13,11 @@ export default function ControlBar() {
 
   return (
     <div
-      className="absolute top-[68px] z-[200] flex items-center gap-2.5 transition-all duration-300 ease-out"
-      style={{ left: filterPanelOpen ? "356px" : "16px" }}
+      className="fixed z-[200] flex items-center gap-2.5 transition-all duration-300 ease-out"
+      style={{
+        top: "calc(56px + var(--banner-height, 0px) + 12px)",
+        left: filterPanelOpen ? "356px" : "16px",
+      }}
     >
       {/* Filters button — leftmost */}
       <button

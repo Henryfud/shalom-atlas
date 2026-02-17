@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <!-- Gold gradient for Star of David -->
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#e8c252;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#d4a853;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#c49a3c;stop-opacity:1" />
+    </linearGradient>
+    <!-- Blue gradient for background hex -->
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e3a6e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0d1526;stop-opacity:1" />
+    </linearGradient>
+    <!-- Glow effect -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="innerGlow">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background hexagon shape -->
+  <polygon 
+    points="256,32 467,152 467,360 256,480 45,360 45,152" 
+    fill="url(#blueGrad)" 
+    stroke="#2a5090" 
+    stroke-width="6"
+  />
+  
+  <!-- Subtle hex grid lines inside (decorative) -->
+  <g opacity="0.12" stroke="#4a9fd4" stroke-width="1.5" fill="none">
+    <!-- Top row small hexes -->
+    <polygon points="256,80 290,100 290,135 256,155 222,135 222,100"/>
+    <polygon points="188,115 222,135 222,170 188,190 154,170 154,135"/>
+    <polygon points="324,115 358,135 358,170 324,190 290,170 290,135"/>
+    <!-- Middle row -->
+    <polygon points="154,170 188,190 188,225 154,245 120,225 120,190"/>
+    <polygon points="222,170 256,190 256,225 222,245 188,225 188,190"/>
+    <polygon points="290,170 324,190 324,225 290,245 256,225 256,190"/>
+    <polygon points="358,170 392,190 392,225 358,245 324,225 324,190"/>
+    <!-- Lower rows -->
+    <polygon points="188,225 222,245 222,280 188,300 154,280 154,245"/>
+    <polygon points="256,225 290,245 290,280 256,300 222,280 222,245"/>
+    <polygon points="324,225 358,245 358,280 324,300 290,280 290,245"/>
+    <polygon points="222,280 256,300 256,335 222,355 188,335 188,300"/>
+    <polygon points="290,280 324,300 324,335 290,355 256,335 256,300"/>
+    <polygon points="256,335 290,355 290,390 256,410 222,390 222,355"/>
+  </g>
+  
+  <!-- Star of David - two overlapping triangles -->
+  <g filter="url(#glow)">
+    <!-- Upward triangle -->
+    <polygon 
+      points="256,120 368,314 144,314" 
+      fill="none" 
+      stroke="url(#goldGrad)" 
+      stroke-width="18" 
+      stroke-linejoin="round"
+    />
+    <!-- Downward triangle -->
+    <polygon 
+      points="256,384 144,190 368,190" 
+      fill="none" 
+      stroke="url(#goldGrad)" 
+      stroke-width="18" 
+      stroke-linejoin="round"
+    />
+  </g>
+  
+  <!-- Inner fill of the center hexagon formed by the star -->
+  <polygon 
+    points="256,190 312,222 312,282 256,314 200,282 200,222" 
+    fill="#d4a853" 
+    opacity="0.2"
+  />
+</svg>

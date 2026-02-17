@@ -1,0 +1,38 @@
+{
+  "totalEstimatedPopulation": 258000000,
+  "totalChurches": 384000,
+  "totalFastFood": 197000,
+  "totalRetailChains": 89000,
+  "statesWithData": 50,
+  "topMetros": [
+    { "rank": 1, "name": "Jackson, MS", "gpi": 99 },
+    { "rank": 2, "name": "Lubbock, TX", "gpi": 97 },
+    { "rank": 3, "name": "Tulsa, OK", "gpi": 96 },
+    { "rank": 4, "name": "Birmingham, AL", "gpi": 95 },
+    { "rank": 5, "name": "Knoxville, TN", "gpi": 94 },
+    { "rank": 6, "name": "Little Rock, AR", "gpi": 93 },
+    { "rank": 7, "name": "Macon, GA", "gpi": 92 },
+    { "rank": 8, "name": "Wichita, KS", "gpi": 91 },
+    { "rank": 9, "name": "Shreveport, LA", "gpi": 90 },
+    { "rank": 10, "name": "Amarillo, TX", "gpi": 89 }
+  ],
+  "topZIPs": [
+    { "rank": 1, "zip": "39212", "area": "Jackson, MS", "gpi": 99 },
+    { "rank": 2, "zip": "79414", "area": "Lubbock, TX", "gpi": 98 },
+    { "rank": 3, "zip": "74136", "area": "Tulsa, OK", "gpi": 97 },
+    { "rank": 4, "zip": "35215", "area": "Birmingham, AL", "gpi": 96 },
+    { "rank": 5, "zip": "37920", "area": "Knoxville, TN", "gpi": 95 },
+    { "rank": 6, "zip": "72209", "area": "Little Rock, AR", "gpi": 94 },
+    { "rank": 7, "zip": "31206", "area": "Macon, GA", "gpi": 93 },
+    { "rank": 8, "zip": "67217", "area": "Wichita, KS", "gpi": 92 },
+    { "rank": 9, "zip": "71108", "area": "Shreveport, LA", "gpi": 91 },
+    { "rank": 10, "zip": "79109", "area": "Amarillo, TX", "gpi": 90 }
+  ],
+  "gpiDistribution": {
+    "0-20": 1842,
+    "21-40": 3156,
+    "41-60": 7823,
+    "61-80": 9412,
+    "81-100": 4610
+  }
+}

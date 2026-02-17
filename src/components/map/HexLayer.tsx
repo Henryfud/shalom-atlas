@@ -6,7 +6,11 @@ import { useAppStore } from "@/store";
 import { getExpressionsForMode } from "@/lib/colors";
 import type { FeatureCollection, Point } from "geojson";
 
-export default function HexLayer() {
+interface HexLayerProps {
+  beforeId?: string;
+}
+
+export default function HexLayer({ beforeId }: HexLayerProps) {
   const showCDI = useAppStore((s) => s.showCDI);
   const mode = useAppStore((s) => s.mode);
 
@@ -33,6 +37,7 @@ export default function HexLayer() {
 
   const outlineColor = mode === "jewish" ? "#d4a853" : "#dc2626";
   const hoverOutlineColor = mode === "jewish" ? "#d4a853" : "#ef4444";
+  const selectedOutlineColor = mode === "jewish" ? "#e8c252" : "#ef4444";
 
   if (!showCDI) return null;
 
@@ -45,6 +50,7 @@ export default function HexLayer() {
             id="hex-glow"
             type="circle"
             source="hex-centroids"
+            beforeId={beforeId}
             paint={{
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               "circle-radius": expressions.glowRadius as any,
@@ -65,6 +71,7 @@ export default function HexLayer() {
           id="hex-fill"
           type="fill"
           source-layer={sourceLayer}
+          beforeId={beforeId}
           paint={{
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             "fill-color": expressions.fillColor as any,
@@ -76,6 +83,7 @@ export default function HexLayer() {
           id="hex-outline"
           type="line"
           source-layer={sourceLayer}
+          beforeId={beforeId}
           paint={{
             "line-color": outlineColor,
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -88,6 +96,7 @@ export default function HexLayer() {
           id="hex-hover"
           type="line"
           source-layer={sourceLayer}
+          beforeId={beforeId}
           paint={{
             "line-color": hoverOutlineColor,
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -95,6 +104,23 @@ export default function HexLayer() {
               "case",
               ["boolean", ["feature-state", "hover"], false],
               2,
+              0,
+            ] as any,
+            "line-opacity": 1,
+          }}
+        />
+        <Layer
+          id="hex-selected"
+          type="line"
+          source-layer={sourceLayer}
+          beforeId={beforeId}
+          paint={{
+            "line-color": selectedOutlineColor,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            "line-width": [
+              "case",
+              ["boolean", ["feature-state", "selected"], false],
+              3,
               0,
             ] as any,
             "line-opacity": 1,

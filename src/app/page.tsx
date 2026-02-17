@@ -8,6 +8,7 @@ import WelcomeModal from "@/components/ui/WelcomeModal";
 import RequestDataSection from "@/components/ui/RequestDataSection";
 import Navbar from "@/components/ui/Navbar";
 import AuthModal from "@/components/ui/AuthModal";
+import SupportBanner from "@/components/ui/SupportBanner";
 import WalletModal from "@/components/ui/WalletModal";
 import ModeAttributeSync from "@/components/ModeAttributeSync";
 
@@ -21,6 +22,7 @@ export default function HomePage() {
     <main>
       <ModeAttributeSync />
       <Navbar />
+      <SupportBanner />
       {/* Map section — full viewport height */}
       <div className="relative h-screen">
         <MapContainer />

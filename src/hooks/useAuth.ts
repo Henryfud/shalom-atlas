@@ -1,88 +1,110 @@
 "use client";
 
 import { useEffect, useCallback } from "react";
-import { supabase } from "@/lib/supabase";
 import { useAppStore } from "@/store";
-import type { Profile } from "@/types";
 
-const toEmail = (username: string) => `${username.toLowerCase()}@shalomatlas.local`;
+interface AuthUser {
+  id: string;
+  username: string;
+  wallet_address?: string;
+  trust_level?: number;
+  created_at?: string;
+}
 
-async function fetchProfile(userId: string): Promise<Profile | null> {
-  const { data } = await supabase
-    .from("profiles")
-    .select("*")
-    .eq("id", userId)
-    .single();
-  return data as Profile | null;
+const STORAGE_KEY = "shalom_atlas_user";
+
+function saveUser(user: AuthUser) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(user));
+}
+
+function loadUser(): AuthUser | null {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+}
+
+function clearUser() {
+  localStorage.removeItem(STORAGE_KEY);
 }
 
 export function useAuth() {
   const setUser = useAppStore((s) => s.setUser);
   const setProfile = useAppStore((s) => s.setProfile);
 
-  // Listen to auth state changes
+  // Restore session from localStorage on mount
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session?.user) {
-        setUser(session.user);
-        fetchProfile(session.user.id).then(setProfile);
-      }
-    });
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (_event, session) => {
-        if (session?.user) {
-          setUser(session.user);
-          const profile = await fetchProfile(session.user.id);
-          setProfile(profile);
-        } else {
-          setUser(null);
-          setProfile(null);
-        }
-      }
-    );
-
-    return () => subscription.unsubscribe();
+    const saved = loadUser();
+    if (saved) {
+      setUser(saved);
+      setProfile({
+        id: saved.id,
+        username: saved.username,
+        wallet_address: saved.wallet_address || null,
+        trust_level: saved.trust_level || 1,
+        created_at: saved.created_at || new Date().toISOString(),
+      });
+    }
   }, [setUser, setProfile]);
 
   const register = useCallback(
     async (username: string, password: string) => {
-      const email = toEmail(username);
-
-      const { data: authData, error: authError } = await supabase.auth.signUp({
-        email,
-        password,
+      const res = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
       });
 
-      if (authError) throw new Error(authError.message);
-      if (!authData.user) throw new Error("Registration failed");
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Registration failed");
 
-      const { error: profileError } = await supabase.from("profiles").insert({
-        id: authData.user.id,
-        username,
+      const user: AuthUser = data.user;
+      saveUser(user);
+      setUser(user);
+      setProfile({
+        id: user.id,
+        username: user.username,
+        wallet_address: null,
+        trust_level: 1,
+        created_at: new Date().toISOString(),
       });
 
-      if (profileError) throw new Error(profileError.message);
-
-      return authData.user;
+      return user;
     },
-    []
+    [setUser, setProfile]
   );
 
-  const login = useCallback(async (username: string, password: string) => {
-    const email = toEmail(username);
+  const login = useCallback(
+    async (username: string, password: string) => {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password }),
+      });
 
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Login failed");
 
-    if (error) throw new Error(error.message);
-    return data.user;
-  }, []);
+      const user: AuthUser = data.user;
+      saveUser(user);
+      setUser(user);
+      setProfile({
+        id: user.id,
+        username: user.username,
+        wallet_address: user.wallet_address || null,
+        trust_level: user.trust_level || 1,
+        created_at: user.created_at || new Date().toISOString(),
+      });
 
-  const logout = useCallback(async () => {
-    await supabase.auth.signOut();
+      return user;
+    },
+    [setUser, setProfile]
+  );
+
+  const logout = useCallback(() => {
+    clearUser();
     setUser(null);
     setProfile(null);
   }, [setUser, setProfile]);

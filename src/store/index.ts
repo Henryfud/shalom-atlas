@@ -1,7 +1,6 @@
 import { create } from "zustand";
 import type { AppMode, ViewState, Profile } from "@/types";
 import { MODE_CONFIGS } from "@/lib/mode-config";
-import type { User } from "@supabase/supabase-js";
 
 const filtersForMode = (mode: AppMode) =>
   Object.fromEntries(MODE_CONFIGS[mode].filters.map((f) => [f.id, true]));
@@ -30,9 +29,11 @@ interface AppStore {
   setAllFilters: (enabled: boolean) => void;
 
   // Auth
-  user: User | null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  user: any | null;
   profile: Profile | null;
-  setUser: (user: User | null) => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  setUser: (user: any | null) => void;
   setProfile: (profile: Profile | null) => void;
 
   // Modals
