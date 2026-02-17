@@ -32,7 +32,7 @@ const WALLETS = [
     name: "pump.fun",
     ticker: "CA",
     color: "#00D18C",
-    address: "To be announced",
+    address: "7ZdpvRp8tLHCeGufyCd8ZUMDgTUJTQD9VtNpvoccpump",
   },
 ];
 
