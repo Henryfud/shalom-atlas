@@ -1,5 +1,4 @@
 "use client";
-// auto-deploy test
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { useAppStore } from "@/store";
@@ -103,7 +102,7 @@ export default function Navbar() {
           className="text-text-secondary hover:text-text-primary transition-colors"
           title="Join our X community"
         >
-          <svg className="w-4.5 h-4.5" viewBox="0 0 24 24" fill="currentColor">
+          <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
             <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
           </svg>
         </a>
